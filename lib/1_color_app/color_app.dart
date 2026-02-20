@@ -83,12 +83,9 @@ class ColorTapsScreen extends StatelessWidget {
         listenable: colorService,
         builder: (context, child) {
           return Column(
-            children: [
-              ColorTap(type: CardType.red),
-              ColorTap(type: CardType.green),
-              ColorTap(type: CardType.yellow),
-              ColorTap(type: CardType.blue),
-            ],
+            children: CardType.values
+                .map((type) => ColorTap(type: type))
+                .toList(),
           );
         },
       ),
@@ -152,24 +149,13 @@ class StatisticsScreen extends StatelessWidget {
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  'Red Taps: ${colorService.getTapCount(CardType.red)}',
+              children: CardType.values.map((type) {
+                return Text(
+                  'Number of ${type.name} = '
+                  '${colorService.getTapCount(type)}',
                   style: const TextStyle(fontSize: 24),
-                ),
-                Text(
-                  'Green Taps: ${colorService.getTapCount(CardType.green)}',
-                  style: const TextStyle(fontSize: 24),
-                ),
-                Text(
-                  'Yellow Taps: ${colorService.getTapCount(CardType.yellow)}',
-                  style: const TextStyle(fontSize: 24),
-                ),
-                Text(
-                  'Blue Taps: ${colorService.getTapCount(CardType.blue)}',
-                  style: const TextStyle(fontSize: 24),
-                ),
-              ],
+                );
+              }).toList(),
             ),
           );
         },
